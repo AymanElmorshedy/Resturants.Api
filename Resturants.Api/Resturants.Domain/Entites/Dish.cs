@@ -12,7 +12,8 @@ namespace Resturants.Domain.Entites
         public string Name { get; set; }= default!;
         public string Description { get; set; } = default!;
         public decimal Price { get; set; } = default!;
-
+        public Resturant Resturant { get; set; }=new ();
+        public int ResturantId { get; set; }
 
     }
 }

@@ -1,4 +1,6 @@
 
+using Resturants.Infrastructure.Persistence;
+using Resturants.Infrastructure.Extentions;
 namespace Resturants.Api
 {
     public class Program
@@ -13,6 +15,7 @@ namespace Resturants.Api
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
             var app = builder.Build();
 
