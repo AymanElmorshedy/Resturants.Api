@@ -1,11 +1,12 @@
 
 using Resturants.Infrastructure.Persistence;
 using Resturants.Infrastructure.Extentions;
+using Resturants.Infrastructure.Seeders;
 namespace Resturants.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ namespace Resturants.Api
             builder.Services.AddInfrastructureServices(builder.Configuration);
 
             var app = builder.Build();
+            var Scoped = app.Services.CreateScope();
+            var Seeder=  Scoped.ServiceProvider.GetRequiredService<IResturantSeeder>();
+           await Seeder.SeedAsync();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
