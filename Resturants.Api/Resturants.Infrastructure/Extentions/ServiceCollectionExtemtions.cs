@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Resturants.Domain.Repositories;
 using Resturants.Infrastructure.Persistence;
+using Resturants.Infrastructure.Repositories;
 using Resturants.Infrastructure.Seeders;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Resturants.Infrastructure.Extentions
 {
-    public static class ServiceCollectionExtemtions
+    public static class ServiceCollectionExtentions
     {
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
@@ -21,6 +23,7 @@ namespace Resturants.Infrastructure.Extentions
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                 });
             services.AddScoped<IResturantSeeder, ResturantSeeder>();
+            services.AddScoped<IResturantRepository,ResturantsRepository>();
         }
     }
 }

@@ -2,6 +2,7 @@
 using Resturants.Infrastructure.Persistence;
 using Resturants.Infrastructure.Extentions;
 using Resturants.Infrastructure.Seeders;
+using Resturants.Application.Extentions;
 namespace Resturants.Api
 {
     public class Program
@@ -17,6 +18,7 @@ namespace Resturants.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddApplicationService();
 
             var app = builder.Build();
             var Scoped = app.Services.CreateScope();
