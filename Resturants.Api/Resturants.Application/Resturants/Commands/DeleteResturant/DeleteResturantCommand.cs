@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Resturants.Application.Resturants.Commands.DeleteResturant
 {
-    public class DeleteResturantCommand(int id) :IRequest
+    public class DeleteResturantCommand(int id) :IRequest<bool>
     {
         public int Id { get;  }=id;
     }

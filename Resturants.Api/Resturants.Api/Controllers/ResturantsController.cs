@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Resturants.Application.Resturants.Commands.CreateResturant;
+using Resturants.Application.Resturants.Commands.DeleteResturant;
 using Resturants.Application.Resturants.Dtos;
 using Resturants.Application.Resturants.Queries.GetAllResturants;
 using Resturants.Application.Resturants.Queries.GetResturantById;

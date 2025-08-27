@@ -20,6 +20,12 @@ namespace Resturants.Infrastructure.Repositories
             return resturant.Id;
         }
 
+        public async Task DeleteAsync(Resturant restursnt)
+        {
+            _dbContext.Remove(restursnt);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Resturant>> GetAllAsync()
         {
             var Resturants =await _dbContext.Resturants.ToListAsync();

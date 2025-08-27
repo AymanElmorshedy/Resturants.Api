@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using Resturants.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,18 @@ using System.Threading.Tasks;
 
 namespace Resturants.Application.Resturants.Commands.DeleteResturant
 {
-    public class DeleteResturantCommandHandler(ILogger<DeleteResturantCommandHandler> logger) : IRequestHandler<DeleteResturantCommand>
+    public class DeleteResturantCommandHandler(ILogger<DeleteResturantCommandHandler> logger,
+        IResturantRepository repository) : IRequestHandler<DeleteResturantCommand,bool>
     {
-        public Task Handle(DeleteResturantCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteResturantCommand request, CancellationToken cancellationToken)
         {
             logger.LogInformation($"Deleting resturant with id : {request.Id}"); 
+            var restursnt = await repository.GetById( request.Id );
+            if( restursnt is null ) return false;
+           await repository.DeleteAsync( restursnt );
+            return true;
         }
+
+      
     }
 }

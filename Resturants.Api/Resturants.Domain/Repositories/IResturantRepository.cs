@@ -10,6 +10,7 @@ namespace Resturants.Domain.Repositories
     public interface IResturantRepository
     {
         Task<int> createAsync(Resturant resturant);
+        Task DeleteAsync(Resturant restursnt);
         Task<IEnumerable<Resturant>> GetAllAsync();
         Task<Resturant?> GetById(int id);
     }
