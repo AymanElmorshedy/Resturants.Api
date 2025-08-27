@@ -32,13 +32,19 @@ namespace Resturants.Infrastructure.Repositories
             return Resturants;
         }
 
-        public async Task<Resturant?> GetById(int id)
+        public async Task<Resturant?> GetByIdAsync(int id)
         {
             var Resturant =await _dbContext.Resturants
                 .Include(r=>r.Dishes)
                 .FirstOrDefaultAsync(r=>r.Id==id);
             return Resturant;
             
+        }
+
+        public async Task UpdateAsync(Resturant resturant)
+        {
+            _dbContext.Resturants.Update(resturant);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

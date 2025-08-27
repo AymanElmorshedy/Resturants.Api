@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Resturants.Application.Resturants.Commands.CreateResturant;
+using Resturants.Application.Resturants.Commands.UpdateResturant;
 using Resturants.Application.Resturants.Dtos;
 using Resturants.Domain.Entites;
 using System;
@@ -14,6 +15,7 @@ namespace Resturants.Application.Profiles
     {
         public ResturantProfile()
         {
+            CreateMap<UpdateResturantCommand, Resturant>();
             CreateMap<Resturant, ResturantDto>()
             .ForMember(dest => dest.City,
             options =>

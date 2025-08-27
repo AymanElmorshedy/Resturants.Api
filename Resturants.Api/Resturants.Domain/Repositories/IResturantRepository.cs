@@ -12,6 +12,7 @@ namespace Resturants.Domain.Repositories
         Task<int> createAsync(Resturant resturant);
         Task DeleteAsync(Resturant restursnt);
         Task<IEnumerable<Resturant>> GetAllAsync();
-        Task<Resturant?> GetById(int id);
+        Task<Resturant?> GetByIdAsync(int id);
+        Task UpdateAsync(Resturant resturant);
     }
 }
