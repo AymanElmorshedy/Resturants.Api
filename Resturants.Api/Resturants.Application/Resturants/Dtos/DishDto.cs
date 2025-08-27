@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturants.Application.Dtos
+namespace Resturants.Application.Resturants.Dtos
 {
     public class DishDto
     {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Resturants.Application.Dtos.Resturant;
+using Resturants.Application.Resturants.Commands.CreateResturant;
+using Resturants.Application.Resturants.Dtos;
 using Resturants.Domain.Entites;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Resturants.Application.Profiles
               options =>
               options.MapFrom(src => src.Dishes))
                 .ReverseMap();
-            CreateMap<CreateResturantDto, Resturant>()
+            CreateMap<CreateResturantCommand, Resturant>()
                 .ForMember(dest => dest.Address, options =>
                 options.MapFrom(
                     src => new Address()

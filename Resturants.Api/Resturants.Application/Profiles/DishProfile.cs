@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Resturants.Application.Dtos;
+using Resturants.Application.Resturants.Dtos;
 using Resturants.Domain.Entites;
 using System;
 using System.Collections.Generic;

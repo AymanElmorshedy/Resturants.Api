@@ -1,17 +1,17 @@
 ﻿using FluentValidation;
-using Resturants.Application.Dtos.Resturant;
+using Resturants.Application.Resturants.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturants.Application.Validators.Resturant
+namespace Resturants.Application.Resturants.Commands.CreateResturant
 {
-    public class CreateResturantDtoValidator :AbstractValidator<CreateResturantDto>
+    public class CreateResturantCommandValidator : AbstractValidator<CreateResturantCommand>
     {
         private readonly List<string> ValidCategories = ["Italian", "Egyption", "Japanes", "American", "Indian"];
-        public CreateResturantDtoValidator()
+        public CreateResturantCommandValidator()
         {
             RuleFor(dto => dto.Name)
                 .Length(3, 100);
@@ -30,7 +30,7 @@ namespace Resturants.Application.Validators.Resturant
             RuleFor(dto => dto.ContactEmail)
                 .EmailAddress()
                 .WithMessage("Please provide a valid email address");
-          
+
 
         }
     }
