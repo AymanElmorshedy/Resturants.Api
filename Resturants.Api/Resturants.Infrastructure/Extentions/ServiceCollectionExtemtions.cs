@@ -20,7 +20,8 @@ namespace Resturants.Infrastructure.Extentions
             services.AddDbContext<ResturantsDbContext>
                 (options =>
                 {
-                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                    .EnableSensitiveDataLogging();
                 });
             services.AddScoped<IResturantSeeder, ResturantSeeder>();
             services.AddScoped<IResturantRepository,ResturantsRepository>();
