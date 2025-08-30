@@ -6,6 +6,7 @@ using Resturants.Application.Extentions;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
+using Resturants.Api.Middlewares;
 namespace Resturants.Api
 {
     public class Program
@@ -29,10 +30,16 @@ namespace Resturants.Api
                 .ReadFrom.Configuration(context.Configuration);
                 
             });
+            builder.Services.AddScoped<ErrorHandlingMiddleware>();
+            builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
             var app = builder.Build();
             var Scoped = app.Services.CreateScope();
             var Seeder=  Scoped.ServiceProvider.GetRequiredService<IResturantSeeder>();
             await Seeder.SeedAsync();
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<RequestTimeLoggingMiddleware>();
+
             app.UseSerilogRequestLogging();
 
             // Configure the HTTP request pipeline.

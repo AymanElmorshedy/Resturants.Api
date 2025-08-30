@@ -25,8 +25,7 @@ namespace Resturants.Api.Controllers
         public async Task<ActionResult<ResturantDto?>> GetById([FromRoute] int id)
         {
             var Resturant = await mediator.Send(new GetResturantByIdQuery(id) );
-            if(Resturant is null)
-                return NotFound();
+          
             return Ok(Resturant);
         }
         [HttpPost]
@@ -44,10 +43,10 @@ namespace Resturants.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteResturant([FromRoute] int id)
         {
-            var IsDeleted = await mediator.Send(new DeleteResturantCommand(id));
-            if(IsDeleted)
+           await mediator.Send(new DeleteResturantCommand(id));
+            
                 return NoContent();
-            return NotFound();
+            
         }
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -55,10 +54,9 @@ namespace Resturants.Api.Controllers
         public async Task<IActionResult> UpdateResturant([FromRoute]int id ,UpdateResturantCommand command)
         {
             command.Id = id;
-            var IsUpdated = await mediator.Send(command);
-            if(IsUpdated)
-                return NoContent();
-            return NotFound();
+             await mediator.Send(command);
+         
+            return NoContent();
         }
         
     }

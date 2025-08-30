@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Resturants.Application.Resturants.Dtos;
+using Resturants.Domain.Entites;
+using Resturants.Domain.Exceptions;
 using Resturants.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,13 +14,14 @@ using System.Threading.Tasks;
 namespace Resturants.Application.Resturants.Queries.GetResturantById
 {
     public class GetResturantByIdQueryHandler(IResturantRepository repository
-        ,IMapper mapper,ILogger<GetResturantByIdQueryHandler> logger) : IRequestHandler<GetResturantByIdQuery, ResturantDto?>
+        ,IMapper mapper,ILogger<GetResturantByIdQueryHandler> logger) : IRequestHandler<GetResturantByIdQuery, ResturantDto>
     {
-        public async Task<ResturantDto?> Handle(GetResturantByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ResturantDto> Handle(GetResturantByIdQuery request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Getting Resturant of {ResturantId}",request.Id);
-            var Resturant = await repository.GetByIdAsync(request.Id);
-            var resturantDto = mapper.Map<ResturantDto?>(Resturant);
+            var resturant = await repository.GetByIdAsync(request.Id)
+                ?? throw new NotFoundException(nameof(Resturant), request.Id.ToString());
+            var resturantDto = mapper.Map<ResturantDto>(resturant);
             return resturantDto;
         }
     }

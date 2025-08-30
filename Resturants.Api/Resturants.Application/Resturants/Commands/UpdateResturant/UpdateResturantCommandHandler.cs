@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Resturants.Domain.Entites;
+using Resturants.Domain.Exceptions;
 using Resturants.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,16 +15,17 @@ namespace Resturants.Application.Resturants.Commands.UpdateResturant
 {
     public class UpdateResturantCommandHandler(ILogger<UpdateResturantCommandHandler> logger,
         IResturantRepository repository
-        ,IMapper mapper) : IRequestHandler<UpdateResturantCommand, bool>
+        ,IMapper mapper) : IRequestHandler<UpdateResturantCommand>
     {
-        public async Task<bool> Handle(UpdateResturantCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateResturantCommand request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Updating resturant with id : {ResturantId} with {@UpdateResturant}",request.Id,request);
             var resturant = await repository.GetByIdAsync( request.Id );
-            if(resturant is null ) return false;
+            if(resturant is null) throw new NotFoundException(nameof(Resturant),request.Id.ToString());
             mapper.Map(request,resturant);
             await repository.UpdateAsync(resturant);
-            return true;
+            
+            
 
             
         }
