@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturants.Domain.Entites
+namespace Resturants.Application.Dishes.Dtos
 {
-    public class Dish
+    public class DishDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }= default!;
+        public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
         public decimal Price { get; set; } = default!;
         public int? KiloCalories { get; set; }
-        public int ResturantId { get; set; }
-        public Resturant Resturant { get; set; }=new ();
     }
 }

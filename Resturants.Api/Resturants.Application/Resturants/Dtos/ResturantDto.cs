@@ -1,4 +1,5 @@
-﻿using Resturants.Domain.Entites;
+﻿using Resturants.Application.Dishes.Dtos;
+using Resturants.Domain.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
