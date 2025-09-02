@@ -1,11 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Resturants.Application.Dishes.Commands.CreateDish;
+using Resturants.Application.Dishes.Dtos;
+using Resturants.Application.Dishes.Querires;
+using Resturants.Application.Dishes.Querires.GetAllDishes;
+using Resturants.Application.Dishes.Querires.GetDishById;
 
 namespace Resturants.Api.Controllers
 {
-    [ApiController]
     [Route("api/resturant/{resturantId}/dishes")]
+    [ApiController]
     public class DishesController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
@@ -13,7 +17,20 @@ namespace Resturants.Api.Controllers
         {
             command.ResturantId = resturantId;
             await mediator.Send(command);
-            return Created();
+            return Created();  
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DishDto>>> GetAllForResturants([FromRoute] int resturantId)
+        {
+           var dishes= await mediator.Send(new GetDishesForResturantQuery(resturantId));
+            return Ok(dishes);
+        }
+        [HttpGet("{dishId}")]
+        public async Task<ActionResult<DishDto>> GetByIdForResturant([FromRoute] int resturantId, [FromRoute] int dishId)
+        {
+            var dish = await mediator.Send(new GetDishByIdForResturantQuery(resturantId, dishId));
+            return Ok(dish);
+
         }
     }
 }

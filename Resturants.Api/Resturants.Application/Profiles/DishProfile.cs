@@ -16,6 +16,7 @@ namespace Resturants.Application.Profiles
         {
             CreateMap<Dish,DishDto>();
             CreateMap<CreateDishCommand, Dish>();
+
              
         }
     }

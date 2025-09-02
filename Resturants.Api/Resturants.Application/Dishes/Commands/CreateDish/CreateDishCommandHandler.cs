@@ -23,6 +23,7 @@ namespace Resturants.Application.Dishes.Commands.CreateDish
             var resturant = await resturantRepository.GetByIdAsync(request.ResturantId);
             if (resturant == null) throw new NotFoundException(nameof(Resturant),request.ResturantId.ToString());
             var dish = mapper.Map<Dish>(request);
+           
             await dishesRepository.CreateAsync(dish);
         }
     }

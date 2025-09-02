@@ -23,7 +23,7 @@ namespace Resturants.Infrastructure.Persistence
                . OwnsOne(r=>r.Address);
             modelBuilder.Entity<Resturant>()
                 .HasMany(r => r.Dishes)
-                .WithOne(d=>d.Resturant)
+                .WithOne()
                 .HasForeignKey(d => d.ResturantId);
         }
 

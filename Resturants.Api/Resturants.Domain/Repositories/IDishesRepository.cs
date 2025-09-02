@@ -10,5 +10,6 @@ namespace Resturants.Domain.Repositories
     public interface IDishesRepository
     {
         Task<int> CreateAsync(Dish entity);
+        Task<Dish?> GetByIdAsync(int id);    
     }
 }

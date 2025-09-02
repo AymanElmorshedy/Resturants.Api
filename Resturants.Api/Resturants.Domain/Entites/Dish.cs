@@ -14,6 +14,6 @@ namespace Resturants.Domain.Entites
         public decimal Price { get; set; } = default!;
         public int? KiloCalories { get; set; }
         public int ResturantId { get; set; }
-        public Resturant Resturant { get; set; }=new ();
+     
     }
 }
