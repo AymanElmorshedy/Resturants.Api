@@ -20,6 +20,12 @@ namespace Resturants.Infrastructure.Repositories
 
         }
 
+        public async Task Delete(IEnumerable<Dish> dishes)
+        {
+             dbContext.RemoveRange(dishes);
+            await dbContext.SaveChangesAsync();
+        }
+
         public async Task<Dish?> GetByIdAsync(int id)
         {
             return  await dbContext.Dishes.FirstOrDefaultAsync(x=>x.Id == id);

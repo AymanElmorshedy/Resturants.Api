@@ -15,16 +15,16 @@ namespace Resturants.Application.Dishes.Commands.CreateDish
     public class CreateDishCommandHandler(ILogger<CreateDishCommandHandler> logger
         ,IResturantRepository resturantRepository
         ,IDishesRepository dishesRepository
-        ,IMapper mapper ) : IRequestHandler<CreateDishCommand>
+        ,IMapper mapper ) : IRequestHandler<CreateDishCommand,int>
     {
-        public async Task Handle(CreateDishCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateDishCommand request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Creating new dish : {@DishRequest}", request);
             var resturant = await resturantRepository.GetByIdAsync(request.ResturantId);
             if (resturant == null) throw new NotFoundException(nameof(Resturant),request.ResturantId.ToString());
             var dish = mapper.Map<Dish>(request);
            
-            await dishesRepository.CreateAsync(dish);
+            return await dishesRepository.CreateAsync(dish);
         }
     }
 }
