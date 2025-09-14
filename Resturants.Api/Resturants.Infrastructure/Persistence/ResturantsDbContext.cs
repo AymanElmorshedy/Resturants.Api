@@ -1,24 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Resturants.Domain.Entites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Resturants.Infrastructure.Persistence
 {
-    public class ResturantsDbContext : DbContext
+    public class ResturantsDbContext(DbContextOptions<ResturantsDbContext> options) 
+        : IdentityDbContext<User>(options)
     {
-        public ResturantsDbContext(DbContextOptions<ResturantsDbContext>options):base(options) 
-        {
-            
-        }
+        
         public DbSet<Resturant> Resturants { get; set; }
         public DbSet<Dish> Dishes { get; set; }
      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Resturant>()
                . OwnsOne(r=>r.Address);
             modelBuilder.Entity<Resturant>()
