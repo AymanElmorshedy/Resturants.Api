@@ -20,8 +20,11 @@ namespace Resturants.Application.Users
             var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
             var emailAddress = user.FindFirst(c => c.Type == ClaimTypes.Email)!.Value;
             var roles = user.Claims.Where(c => c.Type == ClaimTypes.Role)!.Select(c => c.Value);
+            var nationality = user.FindFirst(c=>c.Type == "Nationality")?.Value;
+            var dateOfBirthClaimString = user.FindFirst(c => c.Type == "DateOfBirth")?.Value;
+            var dateOfBirth = dateOfBirthClaimString is null ? (DateOnly?)null : DateOnly.ParseExact(dateOfBirthClaimString,"yyyy-MM-dd");
 
-            return new CurrentUser(userId, emailAddress, roles);
+            return new CurrentUser(userId, emailAddress, roles,nationality, dateOfBirth);
         }
     }
 }

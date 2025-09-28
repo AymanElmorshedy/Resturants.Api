@@ -7,6 +7,7 @@ using Resturants.Application.Resturants.Commands.UpdateResturant;
 using Resturants.Application.Resturants.Dtos;
 using Resturants.Application.Resturants.Queries.GetAllResturants;
 using Resturants.Application.Resturants.Queries.GetResturantById;
+using Resturants.Domain.Constants;
 
 
 namespace Resturants.Api.Controllers
@@ -33,6 +34,7 @@ namespace Resturants.Api.Controllers
             return Ok(Resturant);
         }
         [HttpPost]
+        [Authorize(Roles =UserRoles.Owner)]
         public async Task<IActionResult> CreateResturant([FromBody] CreateResturantCommand command)
         {
             if (!ModelState.IsValid)

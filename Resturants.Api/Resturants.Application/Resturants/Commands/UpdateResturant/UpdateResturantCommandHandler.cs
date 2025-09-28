@@ -4,6 +4,8 @@ using Microsoft.Extensions.Logging;
 using Resturants.Domain.Entites;
 using Resturants.Domain.Exceptions;
 using Resturants.Domain.Repositories;
+using Resturants.Infrastructure.Authorization.Services;
+using Resturants.Infrastructure.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,8 @@ namespace Resturants.Application.Resturants.Commands.UpdateResturant
 {
     public class UpdateResturantCommandHandler(ILogger<UpdateResturantCommandHandler> logger,
         IResturantRepository repository
-        ,IMapper mapper) : IRequestHandler<UpdateResturantCommand>
+        ,IMapper mapper
+        ,IResturantAuthorizationService resturantAuthorizationService ) : IRequestHandler<UpdateResturantCommand>
     {
         public async Task Handle(UpdateResturantCommand request, CancellationToken cancellationToken)
         {
@@ -23,6 +26,10 @@ namespace Resturants.Application.Resturants.Commands.UpdateResturant
             var resturant = await repository.GetByIdAsync( request.Id );
             if(resturant is null) throw new NotFoundException(nameof(Resturant),request.Id.ToString());
             mapper.Map(request,resturant);
+            if (!resturantAuthorizationService.Authorize(resturant, ResourceOperation.Delete) )
+            {
+                throw new ForbidException();
+            }
             await repository.UpdateAsync(resturant);
             
             

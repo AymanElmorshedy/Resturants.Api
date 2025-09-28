@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturants.Application.Users.Commands
+namespace Resturants.Application.Users.Commands.UpdateUserDetails
 {
     public class UpdateUserDetailsCommandHandler(ILogger<UpdateUserDetailsCommandHandler> logger,
         IUserContext userContext
@@ -20,15 +20,15 @@ namespace Resturants.Application.Users.Commands
         {
             var user = userContext.GetCurrentUser();
             logger.LogInformation($"Updating user : {user!.Id} , with {request}");
-            var dbUser =await userStore.FindByIdAsync(user!.Id,cancellationToken);
+            var dbUser = await userStore.FindByIdAsync(user!.Id, cancellationToken);
             if (dbUser == null)
             {
                 throw new NotFoundException(nameof(User), user!.Id);
             }
-            dbUser.Nationality=request.Nationality;
-            dbUser.DateOfBirth=request.DateOfBirth;
+            dbUser.Nationality = request.Nationality;
+            dbUser.DateOfBirth = request.DateOfBirth;
 
-            await userStore.UpdateAsync(dbUser,cancellationToken);
+            await userStore.UpdateAsync(dbUser, cancellationToken);
 
         }
     }
