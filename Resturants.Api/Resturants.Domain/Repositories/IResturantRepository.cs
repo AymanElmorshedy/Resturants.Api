@@ -14,5 +14,6 @@ namespace Resturants.Domain.Repositories
         Task<IEnumerable<Resturant>> GetAllAsync();
         Task<Resturant?> GetByIdAsync(int id);
         Task UpdateAsync(Resturant resturant);
+        Task<(IEnumerable<Resturant>, int)> GetAllMatchingAsync(string? srearchPhase,int PageSize,int PageIndex);
     }
 }

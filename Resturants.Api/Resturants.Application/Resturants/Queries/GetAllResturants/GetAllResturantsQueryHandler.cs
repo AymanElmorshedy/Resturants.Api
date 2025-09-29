@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Resturants.Application.Common;
 using Resturants.Application.Resturants.Dtos;
 using Resturants.Domain.Repositories;
 using System;
@@ -12,14 +13,19 @@ using System.Threading.Tasks;
 namespace Resturants.Application.Resturants.Queries.GetAllResturants
 {
     public class GetAllResturantsQueryHandler(ILogger<GetAllResturantsQueryHandler> logger ,
-        IMapper mapper ,IResturantRepository repository) : IRequestHandler<GetAllResturantsQuery, IEnumerable<ResturantDto>>
+        IMapper mapper ,IResturantRepository repository) : IRequestHandler<GetAllResturantsQuery, PagedResult<ResturantDto>>
     {
-        public async Task<IEnumerable<ResturantDto>> Handle(GetAllResturantsQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<ResturantDto>> Handle(GetAllResturantsQuery request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Getting all resturants");
-            var resturants = await repository.GetAllAsync();
+            var (resturants,totalcount) = await repository.GetAllMatchingAsync(request.SearchPhrase,
+                request.PageSize,request.PageNumber);
             var resturantsDto = mapper.Map<IEnumerable<ResturantDto>>(resturants);
-            return resturantsDto;
+            var result = new PagedResult<ResturantDto>(resturantsDto,totalcount
+                ,request.PageSize
+                ,request.PageNumber);
+        
+            return result;
         }
     }
 }
