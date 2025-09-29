@@ -31,6 +31,15 @@ namespace Resturants.Infrastructure.Repositories
             var Resturants =await _dbContext.Resturants.ToListAsync();
             return Resturants;
         }
+        public async Task<IEnumerable<Resturant>> GetAllMatchingAsync(string? srearchPhase)
+        {
+            var SearchPhaseLower = srearchPhase?.ToLower();
+            var Resturants = await _dbContext.Resturants
+                .Where(r =>(SearchPhaseLower == null) ||( r.Name.ToLower().Contains(SearchPhaseLower) ||
+                r.Description.ToLower().Contains(SearchPhaseLower)))
+                .ToListAsync();
+            return Resturants;
+        }
 
         public async Task<Resturant?> GetByIdAsync(int id)
         {

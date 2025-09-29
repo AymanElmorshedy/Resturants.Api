@@ -20,7 +20,7 @@ namespace Resturants.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<ResturantDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<ResturantDto>>> GetAll([FromQuery] GetAllResturantsQuery query)
         {
           var Resturants=  await mediator.Send(new GetAllResturantsQuery());
             return Ok(Resturants);
