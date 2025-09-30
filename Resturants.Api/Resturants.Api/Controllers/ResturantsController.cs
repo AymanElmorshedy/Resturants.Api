@@ -18,11 +18,11 @@ namespace Resturants.Api.Controllers
     public class ResturantsController(IMediator mediator ) : ControllerBase 
     {
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ResturantDto>>> GetAll([FromQuery] GetAllResturantsQuery query)
         {
-          var Resturants=  await mediator.Send(new GetAllResturantsQuery());
+          var Resturants=  await mediator.Send(query);
             return Ok(Resturants);
         }
         [HttpGet("{id}")]

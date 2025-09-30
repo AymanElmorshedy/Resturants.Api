@@ -24,8 +24,8 @@ namespace Resturants.Api
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
    
-            builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationService();
+            builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.AddPresentations();
            
             var app = builder.Build();
@@ -49,6 +49,7 @@ namespace Resturants.Api
             app.MapGroup("api/identity")
                 .WithTags("Identity")
                 .MapIdentityApi<User>();
+            //app.UseAuthentication();
 
             app.UseAuthorization();
 

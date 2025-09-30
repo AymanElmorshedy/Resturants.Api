@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Resturants.Domain.Entites;
 using Resturants.Domain.Exceptions;
 using Resturants.Domain.Repositories;
-using Resturants.Infrastructure.Authorization.Services;
+//using Resturants.Infrastructure.Authorization.Services;
 using Resturants.Infrastructure.Authorization;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,8 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Resturants.Domain.Interfaces;
+using Resturants.Domain.Constants;
 
 namespace Resturants.Application.Resturants.Commands.UpdateResturant
 {

@@ -2,6 +2,7 @@
 using Resturants.Application.Users;
 using Resturants.Domain.Constants;
 using Resturants.Domain.Entites;
+using Resturants.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,4 +34,6 @@ public class ResturantAuthorizationService(ILogger<ResturantAuthorizationService
         }
         return false;
     }
+
+
 }

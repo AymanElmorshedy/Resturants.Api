@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturants.Domain.Constants;
-
-public enum ResourceOperation
+namespace Resturants.Domain.Constants
 {
-    Create,
-    Read,
-    Update,
-    Delete
+    public enum SortDirection
+    {
+        Ascending,
+        Descending
+
+    }
 }

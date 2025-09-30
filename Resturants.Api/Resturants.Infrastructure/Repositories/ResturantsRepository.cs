@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Resturants.Application.Common;
+using Resturants.Domain.Constants;
 using Resturants.Domain.Entites;
 using Resturants.Domain.Repositories;
 using Resturants.Infrastructure.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,13 +34,26 @@ namespace Resturants.Infrastructure.Repositories
             var Resturants =await _dbContext.Resturants.ToListAsync();
             return Resturants;
         }
-        public async Task<(IEnumerable<Resturant>,int)> GetAllMatchingAsync(string? srearchPhase,int PageSize,int PageIndex)
+        public async Task<(IEnumerable<Resturant>,int)> GetAllMatchingAsync(string? srearchPhase,int PageSize,int PageIndex,string? sortBy,SortDirection sortDirection)
         {
             var SearchPhaseLower = srearchPhase?.ToLower();
             var baseQuery =  _dbContext.Resturants
                 .Where(r => (SearchPhaseLower == null) || (r.Name.ToLower().Contains(SearchPhaseLower) ||
                 r.Description.ToLower().Contains(SearchPhaseLower)));
             var totalCount =await baseQuery.CountAsync();
+            if (sortBy != null)
+            {
+                var columnsSelector = new Dictionary<string, Expression<Func<Resturant, object>>>
+                {
+                    { nameof(Resturant.Name), r => r.Name },
+                    { nameof(Resturant.Description), r => r.Description },
+                    { nameof(Resturant.Category), r => r.Category },
+                };
+                var selectedColumn = columnsSelector[sortBy];
+                baseQuery = sortDirection == SortDirection.Ascending ?
+                    baseQuery.OrderBy(selectedColumn) :
+                    baseQuery.OrderByDescending(selectedColumn);
+            }
 
             var Resturants = await baseQuery
                 .Skip(PageSize * (PageIndex - 1))

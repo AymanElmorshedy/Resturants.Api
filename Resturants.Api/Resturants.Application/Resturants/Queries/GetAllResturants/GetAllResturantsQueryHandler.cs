@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Resturants.Application.Common;
 using Resturants.Application.Resturants.Dtos;
+using Resturants.Domain.Entites;
 using Resturants.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,8 @@ namespace Resturants.Application.Resturants.Queries.GetAllResturants
         public async Task<PagedResult<ResturantDto>> Handle(GetAllResturantsQuery request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Getting all resturants");
-            var (resturants,totalcount) = await repository.GetAllMatchingAsync(request.SearchPhrase,
-                request.PageSize,request.PageNumber);
+            (IEnumerable<Resturant> resturants, int totalcount) = await repository.GetAllMatchingAsync(request.SearchPhrase,
+                request.PageSize,request.PageNumber,request.SortBy,request.SortDirection);
             var resturantsDto = mapper.Map<IEnumerable<ResturantDto>>(resturants);
             var result = new PagedResult<ResturantDto>(resturantsDto,totalcount
                 ,request.PageSize
