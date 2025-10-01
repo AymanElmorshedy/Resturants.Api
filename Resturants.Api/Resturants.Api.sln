@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturants.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturants.Application.Tests", "Resturants.Application.Tests\Resturants.Application.Tests.csproj", "{26018334-1691-4A29-BBBB-39C54D6ACD97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturants.Api.Tests", "Resturants.Api.Tests\Resturants.Api.Tests.csproj", "{B1FE2352-92EC-42C8-BC0A-4B7D946DDFA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{26018334-1691-4A29-BBBB-39C54D6ACD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26018334-1691-4A29-BBBB-39C54D6ACD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26018334-1691-4A29-BBBB-39C54D6ACD97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1FE2352-92EC-42C8-BC0A-4B7D946DDFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1FE2352-92EC-42C8-BC0A-4B7D946DDFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1FE2352-92EC-42C8-BC0A-4B7D946DDFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1FE2352-92EC-42C8-BC0A-4B7D946DDFA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
