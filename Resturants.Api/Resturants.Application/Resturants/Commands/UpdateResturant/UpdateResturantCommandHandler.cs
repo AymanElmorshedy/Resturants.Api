@@ -28,7 +28,7 @@ namespace Resturants.Application.Resturants.Commands.UpdateResturant
             var resturant = await repository.GetByIdAsync( request.Id );
             if(resturant is null) throw new NotFoundException(nameof(Resturant),request.Id.ToString());
             mapper.Map(request,resturant);
-            if (!resturantAuthorizationService.Authorize(resturant, ResourceOperation.Delete) )
+            if (!resturantAuthorizationService.Authorize(resturant, ResourceOperation.Update) )
             {
                 throw new ForbidException();
             }
